@@ -29,7 +29,7 @@ const SignUp = props => (
         placeholder='Username'
       />
     </div>
-    <button type='submit' className='btn btn-primary'>Register</button>
+    <button type='submit' className='btn btn-primary'>Sign up</button>
   </form>
 )
 
