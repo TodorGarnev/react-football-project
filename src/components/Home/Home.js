@@ -13,7 +13,6 @@ export default class Home extends Component {
 
   render = () => (
     <div>
-      <Form />
       <Match />
     </div>
   )

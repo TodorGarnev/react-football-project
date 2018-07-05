@@ -30,3 +30,4 @@
 .nav-pills > a { color: #ddd !important; }
 .image { width: 100px; height: auto; }
 .span-width { width: 80px; }
+.active-link { color: red !important; }
