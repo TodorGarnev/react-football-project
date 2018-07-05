@@ -1,20 +1,17 @@
 import React, { Component } from 'react'
-import Form from './../Forms/Form'
-import Match from './Match'
 
-export default class Home extends Component {
+export default class Match extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-
+      smth: ''
     }
   }
 
   render = () => (
     <div>
-      <Form />
-      <Match />
+      working?
     </div>
   )
 }

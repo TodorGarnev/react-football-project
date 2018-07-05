@@ -6,7 +6,7 @@ const UserRow = props => (
     <td>test2@abv.bg</td>
     <td>0</td>
     <td>
-      <input type="checkbox" disabled />
+      <input type='checkbox' disabled />
     </td>
     <td>
       <button className='btn btn-secondary'>Edit</button>
