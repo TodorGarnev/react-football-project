@@ -3,12 +3,12 @@ import React from 'react'
 const LogIn = props => (
   <form className='form'>
     <div className='form-group'>
-      <label htmlFor='login-email'>Email address</label>
+      <label htmlFor='login-username'>Username</label>
       <input
-        type='email'
+        type='text'
         className='form-control'
         id='login-email'
-        placeholder='Enter email'
+        placeholder='Username'
       />
     </div>
     <div className='form-group'>

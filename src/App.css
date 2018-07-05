@@ -1,6 +1,4 @@
-.App {
-  text-align: center;
-}
+.App { max-width: 900px; width: 100%; margin: 0 auto; }
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -27,5 +25,8 @@
   to { transform: rotate(360deg); }
 }
 
+.main { margin-bottom: 0 !important; }
 .form { max-width: 500px; width: 100%; margin: 0 auto 20px; }
 .nav-pills > a { color: #ddd !important; }
+.image { width: 100px; height: auto; }
+.span-width { width: 80px; }
