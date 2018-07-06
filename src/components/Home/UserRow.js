@@ -9,8 +9,8 @@ const UserRow = props => (
       <input type='checkbox' disabled />
     </td>
     <td>
-      <button className='btn btn-secondary'>Edit</button>
-      <button className='btn btn-secondary ml-1'>Delete</button>
+      <button className='btn btn-info'>Edit</button>
+      <button className='btn btn-info ml-1'>Delete</button>
     </td>
   </tr>
 )

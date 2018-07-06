@@ -10,8 +10,15 @@ export default class Match extends Component {
   }
 
   render = () => (
-    <div>
-      working?
+    <div className='d-sm-flex w-100 ml-auto mr-auto mb-5 text-white'>
+      <div className='bg-info p-2 w-100 d-flex justify-content-between display-4'>
+        <span>Team</span>
+        <span>0</span>
+      </div>
+      <div className='bg-info p-2 w-100 d-flex justify-content-between display-4 flex-sm-row-reverse'>
+        <span>Team</span>
+        <span >0</span>
+      </div>
     </div>
   )
 }

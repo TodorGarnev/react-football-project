@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Form from './../Forms/Form'
 import Match from './Match'
+import Comments from './Comments'
 
 export default class Home extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ export default class Home extends Component {
   render = () => (
     <div>
       <Match />
+      <Comments />
     </div>
   )
 }

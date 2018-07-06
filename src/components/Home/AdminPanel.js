@@ -14,7 +14,7 @@ export default class AdminPanel extends Component {
   render = () => (
     <div>
       <table className='table text-center'>
-        <thead className='bg-secondary text-white'>
+        <thead className='bg-info text-white'>
           <tr>
             <th scope='col'>Username</th>
             <th scope='col'>Email</th>
