@@ -8,26 +8,104 @@ export default class Form extends Component {
     super(props)
 
     this.state = {
-      route: ''
+      route: '',
+      form: {}
     }
   }
 
-  setLogIn = e => {
+  // setRoute = route => this.setState({route})
+
+  setLogin = e => {
     e.preventDefault()
-    this.setState({ route: 'login' })
+    this.setState({
+      route: 'login'
+    })
   }
 
   setSignUp = e => {
     e.preventDefault()
-    this.setState({ route: '' })
+    this.setState({
+      route: ''
+    })
+  }
+
+  handleChange = e => {
+    const name = e.target.name
+    const value = e.target.value
+    const newState = {}
+    newState[name] = value
+
+    this.setState({
+      form: Object.assign(this.state.form, newState)
+    })
+
+    // this.setState({
+    //   form[name]: value
+    // })
+  }
+
+  onSignUp = e => {
+    e.preventDefault()
+
+    if (this.state.form.email === '' || this.state.form.email === undefined || this.state.form.password === '' || this.state.form.password === undefined || this.state.form.password.length < 5 || this.state.form.username === '' || this.state.form.username === undefined) {
+      console.log('Please insert correct email!')
+    } else {
+      fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ', {
+        method: 'POST',
+        body: JSON.stringify(this.state.form),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Basic ' + btoa('kid_rJZtL7CMQ:c79e8a7612e9464d8d0493ccaf9f5e54'),
+          'X-Kinvey-API-Version': '3',
+        }
+      })
+        .then(data => data.json())
+        .then(response => {
+          console.log(response)
+          if (response.error === undefined) {
+            localStorage.setItem('token', response._kmd.authtoken)
+            this.props.history.push('/')
+          }
+        })
+        .catch(err => console.log(err))
+    }
+  }
+
+  onLogin = e => {
+    e.preventDefault()
+
+    fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/login', {
+      method: 'POST',
+      body: JSON.stringify(this.state.form),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Basic ' + btoa('kid_rJZtL7CMQ:c79e8a7612e9464d8d0493ccaf9f5e54'),
+        'X-Kinvey-API-Version': '3',
+      }
+    })
+      .then(data => data.json())
+      .then(response => {
+        console.log(response)
+        if (response.error === undefined) {
+          localStorage.setItem('token', response._kmd.authtoken)
+          this.props.history.push('/')
+        }
+      })
+      .catch(err => console.log(err))
   }
 
   showForm = () => {
     if (this.state.route === 'login') {
-      return <LogIn />
+      return <LogIn
+        handleChange={this.handleChange}
+        onLogin={this.onLogin}
+      />
     }
 
-    return <SignUp />
+    return <SignUp
+      handleChange={this.handleChange}
+      onSignUp={this.onSignUp}
+    />
   }
 
   render = () => (
@@ -35,7 +113,7 @@ export default class Form extends Component {
       {this.showForm()}
       <Clarification
         route={this.state.route}
-        setLogIn={this.setLogIn}
+        setLogin={this.setLogin}
         setSignUp={this.setSignUp}
       />
     </div>

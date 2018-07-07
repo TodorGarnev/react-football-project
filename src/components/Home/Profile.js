@@ -5,11 +5,32 @@ export default class Profile extends Component {
     super(props)
 
     this.state = {
-      user: {
-        username: 'Your username',
-        password: 'Your password',
-        email: 'Your email'
-      }
+      email: 'You are not logged in!',
+      username: 'You are not logged in!'
+    }
+  }
+
+  componentDidMount = () => {
+    if (localStorage.getItem('token')) {
+      fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/_me', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Kinvey ' + localStorage.getItem('token'),
+          'X-Kinvey-API-Version': '3',
+        }
+      })
+        .then(data => data.json())
+        .then(response => {
+          console.log(response)
+          if (response.error === undefined) {
+            this.setState({
+              email: response.email,
+              username: response.username
+            })
+          }
+        })
+        .catch(err => console.log(err))
     }
   }
 
@@ -25,19 +46,13 @@ export default class Profile extends Component {
           <div className="input-group-prepend">
             <span className="input-group-text span-width">Username</span>
           </div>
-          <input type="text" className="form-control" placeholder={this.state.user.username} />
-        </div>
-        <div className="input-group input-group-sm mb-3">
-          <div className="input-group-prepend">
-            <span className="input-group-text span-width">Password</span>
-          </div>
-          <input type="text" className="form-control" placeholder={this.state.user.password} />
+          <input type="text" className="form-control" placeholder={this.state.username} disabled />
         </div>
         <div className="input-group input-group-sm mb-3">
           <div className="input-group-prepend">
             <span className="input-group-text span-width">Email</span>
           </div>
-          <input type="text" className="form-control" placeholder={this.state.user.email} />
+          <input type="text" className="form-control" placeholder={this.state.email} disabled />
         </div>
       </div>
     </div>
