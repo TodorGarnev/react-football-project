@@ -7,14 +7,40 @@ export default class Home extends Component {
     super(props)
 
     this.state = {
-
+      comments: [],
+      currentComment: ''
     }
   }
 
-  render = () => (
-    <div>
-      <Match />
-      <Comments />
-    </div>
-  )
+  handleChange = e => {
+    this.setState({
+      currentComment: e.target.value
+    })
+  }
+
+  addComment = () => {
+    this.setState(prevState => ({
+      comments: [...prevState.comments, this.state.currentComment]
+    }))
+  }
+
+  deleteComment = id => {
+    let filteredComments = this.state.comments.filter(item => item !== this.state.comments[id])
+    this.setState({ comments: filteredComments })
+  }
+
+  render = () => {
+    return (
+      <div>
+        <Match />
+        <Comments
+          comments={this.state.comments}
+          text={this.state.currentComment}
+          handleChange={this.handleChange}
+          addComment={this.addComment}
+          deleteComment={this.deleteComment}
+        />
+      </div>
+    )
+  }
 }

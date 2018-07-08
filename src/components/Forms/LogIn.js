@@ -27,7 +27,7 @@ const LogIn = props => (
     <button
       type='submit'
       className='btn btn-primary'
-      onClick={props.onLogin}
+      onClick={props.handleLogin}
     >Log in</button>
   </form>
 )

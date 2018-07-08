@@ -1,9 +1,17 @@
 import React from 'react'
 
-const Comment = () => (
-  <div className='container border border-dark bg-white p-2 mb-3 text-dark rounded'>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam voluptatibus esse quas, itaque dolor optio. Corrupti, numquam, neque, quaerat adipisci nostrum cum dolor dicta eum non eligendi repudiandae provident et.
-</div>
+const Comment = props => (
+  <div>
+    <div className='container border border-dark bg-white p-2 mb-1 text-dark rounded'>
+      {props.text}
+
+    </div>
+    <button
+      data-id={props.commentId}
+      className='btn btn-info mb-4'
+      onClick={() => props.deleteComment(props.commentId)}
+    >Delete Me</button>
+  </div>
 )
 
 export default Comment

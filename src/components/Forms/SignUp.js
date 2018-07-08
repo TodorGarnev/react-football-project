@@ -38,7 +38,7 @@ const SignUp = props => (
     <button
       type='submit'
       className='btn btn-primary'
-      onClick={props.onSignUp}
+      onClick={props.handleSignUp}
     >Sign up</button>
   </form>
 )

@@ -14,10 +14,10 @@ const UserRow = props => (
     </td>
     <td>
       <button
+        data-id={props.userId}
         className='btn btn-info'
-        onClick={props.showUser}
+        onClick={props.getUser}
       >Edit</button>
-      <button className='btn btn-info ml-1'>Delete</button>
     </td>
   </tr>
 )

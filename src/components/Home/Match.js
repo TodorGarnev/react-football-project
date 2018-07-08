@@ -9,6 +9,10 @@ export default class Match extends Component {
     }
   }
 
+  componentDidMount = () => {
+
+  }
+
   render = () => (
     <div className='d-sm-flex w-100 ml-auto mr-auto mb-5 text-white'>
       <div className='bg-info p-2 w-100 d-flex justify-content-between display-4'>

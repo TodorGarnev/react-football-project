@@ -8,7 +8,11 @@ export default class AdminPanel extends Component {
 
     this.state = {
       users: [],
-      showUser: false
+      selectedUser: {
+        data: {},
+        showMe: false,
+        id: ''
+      }
     }
   }
 
@@ -31,22 +35,148 @@ export default class AdminPanel extends Component {
       .catch(err => console.log(err))
   }
 
-  chooseUser = (e, id) => {
-    console.log(this.e.target.value)
+  getUser = e => {
+    const pickedUser = this.state.users.find(user => user._id === e.target.dataset.id)
+
+    this.setState({
+      selectedUser: {
+        data: {
+          username: pickedUser.username,
+          email: pickedUser.email,
+          isAdmin: (pickedUser._kmd.roles !== undefined && pickedUser._kmd.roles.length > 0) ? true : false
+        },
+        showMe: true,
+        id: pickedUser._id
+      }
+    })
   }
 
-  showUser = () => this.setState({
-    showUser: true
-  })
+  handleChange = e => {
+    const name = e.target.name
+    const value = e.target.value
+    const newState = {}
+    newState[name] = value
+
+    this.setState({
+      selectedUser: {
+        data: Object.assign(this.state.selectedUser.data, newState),
+        showMe: this.state.selectedUser.showMe,
+        id: this.state.selectedUser.id
+      }
+    })
+  }
+
+  handleUpdate = () => {
+    fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/' + this.state.selectedUser.id, {
+      method: 'PUT',
+      body: JSON.stringify({
+        username: this.state.selectedUser.data.username,
+        email: this.state.selectedUser.data.email,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Kinvey ' + localStorage.getItem('token'),
+        'X-Kinvey-API-Version': '3',
+      }
+    })
+      .then(data => data.json())
+      .then(response => {
+        console.log(response)
+        if (response.error === undefined) {
+          this.setState({
+            selectedUser: {
+              showMe: false
+            }
+          })
+        }
+      })
+      .catch(err => console.log(err))
+  }
+
+  handleToggleAdmin = () => {
+    this.setState({
+      selectedUser: {
+        data: Object.assign(this.state.selectedUser.data, { isAdmin: !this.state.selectedUser.data.isAdmin }),
+        showMe: this.state.selectedUser.showMe,
+        id: this.state.selectedUser.id
+      }
+    })
+
+    if (this.state.selectedUser.data.isAdmin === true) {
+      fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/' + this.state.selectedUser.id + '/roles/c3d31cd1-28b3-436d-b7f9-9611e6d4dcfe', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Basic a2lkX3JKWnRMN0NNUTo3Mjg4NTAyMjc0YzI0YmRmOWE5YmE5ZWE3ZTM3ZGFlZg==',
+          'X-Kinvey-API-Version': '3',
+        }
+      })
+        .then(data => data.json())
+        .then(response => {
+          console.log(response)
+          if (response.error === undefined) {
+            this.setState({
+              selectedUser: {
+                showMe: false
+              }
+            })
+          }
+        })
+        .catch(err => console.log(err))
+    } else if (this.state.selectedUser.data.isAdmin === false) {
+      fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/' + this.state.selectedUser.id + '/roles/c3d31cd1-28b3-436d-b7f9-9611e6d4dcfe', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Basic a2lkX3JKWnRMN0NNUTo3Mjg4NTAyMjc0YzI0YmRmOWE5YmE5ZWE3ZTM3ZGFlZg==',
+          'X-Kinvey-API-Version': '3',
+        }
+      })
+        .then(response => {
+          console.log(response)
+          if (response.error === undefined) {
+            this.setState({
+              selectedUser: {
+                showMe: false
+              }
+            })
+          }
+        })
+        .catch(err => console.log(err))
+    }
+  }
+
+  handleDelete = () => {
+    fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/' + this.state.selectedUser.id + '?hard=true', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Kinvey ' + localStorage.getItem('token'),
+        'X-Kinvey-API-Version': '3',
+      }
+    })
+      .then(response => {
+        console.log(response)
+        if (response.error === undefined) {
+          this.setState({
+            selectedUser: {
+              showMe: false
+            }
+          })
+        }
+      })
+      .catch(err => console.log(err))
+  }
 
   render = () => {
     const allUsers = this.state.users.map(user =>
       <UserRow
         key={user._id}
+        userId={user._id}
         username={user.username}
         email={user.email}
         checked={(user._kmd.roles !== undefined && user._kmd.roles.length > 0) ? true : false}
-        showUser={this.showUser}
+        getUser={this.getUser}
       />
     )
 
@@ -66,7 +196,17 @@ export default class AdminPanel extends Component {
             {allUsers}
           </tbody>
         </table>
-        {this.state.showUser && <UpdateUserRow />}
+        {this.state.selectedUser.showMe &&
+          <UpdateUserRow
+            username={this.state.selectedUser.data.username}
+            email={this.state.selectedUser.data.email}
+            checked={this.state.selectedUser.data.isAdmin}
+            handleChange={this.handleChange}
+            handleUpdate={this.handleUpdate}
+            handleToggleAdmin={this.handleToggleAdmin}
+            handleDelete={this.handleDelete}
+          />
+        }
       </div>
     )
   }

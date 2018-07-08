@@ -44,7 +44,7 @@ export default class Form extends Component {
     // })
   }
 
-  onSignUp = e => {
+  handleSignUp = e => {
     e.preventDefault()
 
     if (this.state.form.email === '' || this.state.form.email === undefined || this.state.form.password === '' || this.state.form.password === undefined || this.state.form.password.length < 5 || this.state.form.username === '' || this.state.form.username === undefined) {
@@ -71,7 +71,7 @@ export default class Form extends Component {
     }
   }
 
-  onLogin = e => {
+  handleLogin = e => {
     e.preventDefault()
 
     fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/login', {
@@ -98,13 +98,13 @@ export default class Form extends Component {
     if (this.state.route === 'login') {
       return <LogIn
         handleChange={this.handleChange}
-        onLogin={this.onLogin}
+        handleLogin={this.handleLogin}
       />
     }
 
     return <SignUp
       handleChange={this.handleChange}
-      onSignUp={this.onSignUp}
+      handleSignUp={this.handleSignUp}
     />
   }
 
