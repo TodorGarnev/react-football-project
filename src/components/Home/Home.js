@@ -19,9 +19,13 @@ export default class Home extends Component {
   }
 
   addComment = () => {
-    this.setState(prevState => ({
-      comments: [...prevState.comments, this.state.currentComment]
-    }))
+    if (this.state.currentComment === '') {
+      console.log('Please write a comment')
+    } else {
+      this.setState(prevState => ({
+        comments: [...prevState.comments, this.state.currentComment]
+      }))
+    }
   }
 
   deleteComment = id => {
