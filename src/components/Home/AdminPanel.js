@@ -17,7 +17,6 @@ export default class AdminPanel extends Component {
   }
 
   componentDidMount = () => {
-    console.log('componentDidMount')
     fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ', {
       method: 'GET',
       headers: {
@@ -114,7 +113,9 @@ export default class AdminPanel extends Component {
   handleToggleAdmin = () => {
     this.setState({
       selectedUser: {
-        data: Object.assign(this.state.selectedUser.data, { isAdmin: !this.state.selectedUser.data.isAdmin }),
+        data: Object.assign(this.state.selectedUser.data, {
+          isAdmin: !this.state.selectedUser.data.isAdmin
+        }),
         showMe: this.state.selectedUser.showMe,
         id: this.state.selectedUser.id
       }

@@ -22,7 +22,7 @@ const LogOut = props => {
     <div>
       <span
         className='text-white ml-2'
-      >{props.user.username} | </span>
+      >Hello, {props.user.username}! | </span>
       <a
         href=''
         className='text-white'

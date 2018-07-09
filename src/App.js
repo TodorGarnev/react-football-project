@@ -20,29 +20,31 @@ class App extends Component {
     }
   }
 
-  // componentDidMount = () => {
-  //   fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: 'Kinvey ' + localStorage.getItem('token'),
-  //       'X-Kinvey-API-Version': '3',
-  //     }
-  //   })
-  //     .then(data => data.json())
-  //     .then(response => {
-  //       console.log(response)
-  //       this.setState({
-  //         users: response
-  //       })
-  //     })
-  //     .catch(err => console.log(err))
-  // }
+
+  componentDidMount = () => {
+    if (localStorage.getItem('token')) {
+      fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/_me', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Kinvey ' + localStorage.getItem('token'),
+          'X-Kinvey-API-Version': '3',
+        }
+      })
+        .then(data => data.json())
+        .then(response => {
+          console.log(response)
+          if (response.error === undefined) {
+            this.setState({ user: response })
+          }
+        })
+        .catch(err => console.log(err))
+    }
+  }
 
   getCurrentUser = data => {
     this.setState({ user: data })
   }
-
 
   render() {
     return (
@@ -54,7 +56,13 @@ class App extends Component {
             <Route path='/' exact render={() => (
               localStorage.getItem('token') ? (<Redirect to='/home' />) : (<Redirect to='/login' />)
             )} />
-            <Route path='/home' exact component={Home} />
+            <Route path='/home' exact render={props =>
+              <Home
+                {...props}
+                user={this.state.user.username}
+              />
+            }
+            />
             <Route path='/login' exact render={props =>
               <Form
                 {...props}
@@ -62,7 +70,12 @@ class App extends Component {
               />
             }
             />
-            <Route path='/profile' exact component={Profile} />
+            <Route path='/profile' exact render={props =>
+              <Profile
+                {...props}
+                user={this.state.user}
+              />
+            } />
             <Route path='/rules' exact component={Rules} />
             <Route path='/dashboard' exact component={AdminPanel} />
             <Redirect to='/' />

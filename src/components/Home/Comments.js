@@ -6,6 +6,7 @@ const Comments = props => {
   const commentsList = props.comments.map((comment, index) =>
     <Comment
       key={index}
+      user={props.user}
       commentId={index}
       text={comment}
       deleteComment={props.deleteComment}
