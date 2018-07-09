@@ -17,6 +17,7 @@ export default class AdminPanel extends Component {
   }
 
   componentDidMount = () => {
+    console.log('componentDidMount')
     fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ', {
       method: 'GET',
       headers: {
@@ -67,7 +68,14 @@ export default class AdminPanel extends Component {
   }
 
   handleUpdate = () => {
-    fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/' + this.state.selectedUser.id, {
+    console.log(this.state.selectedUser);
+    // const users = this.state.users;
+    // const userId = users.findIndex(x => x._id === this.state.selectedUser._id);
+    // const userToUpdate = users[userId];
+    // const test = Object.keys(userToUpdate.data).filter(el => userToUpdate.data[el] !== this.state.selectedUser[el]);
+    // console.log(test);
+
+    fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ/${this.state.selectedUser.id}`, {
       method: 'PUT',
       body: JSON.stringify({
         username: this.state.selectedUser.data.username,
@@ -81,9 +89,19 @@ export default class AdminPanel extends Component {
     })
       .then(data => data.json())
       .then(response => {
-        console.log(response)
         if (response.error === undefined) {
+          const users = this.state.users;
+          const userId = users.findIndex(x => x._id === response._id);
+          if (userId > -1) {
+            const userToUpdate = users[userId];
+            userToUpdate.username = response.username;
+            userToUpdate.email = response.email;
+
+            users[userId] = userToUpdate;
+          }
+
           this.setState({
+            users: users.slice(0),
             selectedUser: {
               showMe: false
             }

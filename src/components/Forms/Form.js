@@ -89,6 +89,7 @@ export default class Form extends Component {
         if (response.error === undefined) {
           localStorage.setItem('token', response._kmd.authtoken)
           this.props.history.push('/')
+          this.props.getCurrentUser(response)
         }
       })
       .catch(err => console.log(err))

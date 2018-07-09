@@ -12,10 +12,42 @@ import './App.css'
 
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      user: {}
+    }
+  }
+
+  // componentDidMount = () => {
+  //   fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: 'Kinvey ' + localStorage.getItem('token'),
+  //       'X-Kinvey-API-Version': '3',
+  //     }
+  //   })
+  //     .then(data => data.json())
+  //     .then(response => {
+  //       console.log(response)
+  //       this.setState({
+  //         users: response
+  //       })
+  //     })
+  //     .catch(err => console.log(err))
+  // }
+
+  getCurrentUser = data => {
+    this.setState({ user: data })
+  }
+
+
   render() {
     return (
       <div className='App'>
-        <Navigation />
+        <Navigation user={this.state.user} />
 
         <section className='jumbotron main'>
           <Switch>
@@ -23,7 +55,13 @@ class App extends Component {
               localStorage.getItem('token') ? (<Redirect to='/home' />) : (<Redirect to='/login' />)
             )} />
             <Route path='/home' exact component={Home} />
-            <Route path='/login' exact component={Form} />
+            <Route path='/login' exact render={props =>
+              <Form
+                {...props}
+                getCurrentUser={this.getCurrentUser}
+              />
+            }
+            />
             <Route path='/profile' exact component={Profile} />
             <Route path='/rules' exact component={Rules} />
             <Route path='/dashboard' exact component={AdminPanel} />

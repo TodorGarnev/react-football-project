@@ -9,7 +9,7 @@ const Comment = props => (
       data-id={props.commentId}
       className='btn btn-info mb-4'
       onClick={() => props.deleteComment(props.commentId)}
-    >Delete Me</button>
+    >Delete</button>
   </div>
 )
 

@@ -7,7 +7,7 @@ const Navigation = props => {
   const showLogOut = () => {
     if (localStorage.getItem('token')) {
       return (
-        <LogOut />
+        <LogOut user={props.user} />
       )
     }
 
@@ -20,7 +20,9 @@ const Navigation = props => {
         <NavLink activeClassName='active' className='nav-link' to='/' exact>Home</NavLink>
         <NavLink activeClassName='active' className='nav-link' to='/profile'>Profile</NavLink>
         <NavLink activeClassName='active' className='nav-link' to='/rules'>Rules</NavLink>
-        <NavLink activeClassName='active' className='nav-link' to='/dashboard'>Dashboard</NavLink>
+        {props.user._kmd ?
+          (props.user._kmd.roles !== undefined && props.user._kmd.roles.length > 0) && <NavLink activeClassName='active' className='nav-link' to='/dashboard'>Dashboard</NavLink>
+          : ''}
       </div>
       {showLogOut()}
     </nav>

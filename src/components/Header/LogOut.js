@@ -19,11 +19,16 @@ const LogOut = props => {
   }
 
   return (
-    <a
-      href=''
-      className='text-white'
-      onClick={logOut}
-    >Log out</a>
+    <div>
+      <span
+        className='text-white ml-2'
+      >{props.user.username} | </span>
+      <a
+        href=''
+        className='text-white'
+        onClick={logOut}
+      >Log out</a>
+    </div>
   )
 }
 

@@ -23,6 +23,7 @@ const Comments = props => {
       <div className="container">
         <textarea
           onChange={props.handleChange}
+          value={props.currentComment}
           className='w-100 p-2 border border-dark rounded'
           rows='4'
         />

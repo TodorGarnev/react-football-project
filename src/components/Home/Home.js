@@ -23,8 +23,10 @@ export default class Home extends Component {
       console.log('Please write a comment')
     } else {
       this.setState(prevState => ({
-        comments: [...prevState.comments, this.state.currentComment]
+        comments: [...prevState.comments, this.state.currentComment],
+        currentComment: '',
       }))
+      console.log(this.state)
     }
   }
 
@@ -43,6 +45,7 @@ export default class Home extends Component {
           handleChange={this.handleChange}
           addComment={this.addComment}
           deleteComment={this.deleteComment}
+          currentComment={this.state.currentComment}
         />
       </div>
     )

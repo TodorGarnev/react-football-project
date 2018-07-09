@@ -20,9 +20,9 @@ const UpdateUserRow = props => (
       </div>
       <input
         name='email'
-        type='text'
+        type='email'
         className='form-control'
-        placeholder={props.email}
+        value={props.email}
         onChange={props.handleChange}
       />
     </div>
