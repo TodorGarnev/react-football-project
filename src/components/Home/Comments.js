@@ -3,12 +3,12 @@ import Comment from './Comment'
 
 const Comments = props => {
 
-  const commentsList = props.comments.map((comment, index) =>
+  const commentsList = props.comments.map(comment =>
     <Comment
-      key={index}
-      user={props.user}
-      commentId={index}
-      text={comment}
+      key={comment._id}
+      author={comment.author}
+      commentId={comment._id}
+      text={comment.comment}
       deleteComment={props.deleteComment}
     />
   )

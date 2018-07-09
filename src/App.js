@@ -59,7 +59,7 @@ class App extends Component {
             <Route path='/home' exact render={props =>
               <Home
                 {...props}
-                user={this.state.user.username}
+                user={this.state.user}
               />
             }
             />

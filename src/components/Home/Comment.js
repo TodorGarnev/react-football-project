@@ -5,7 +5,7 @@ const Comment = props => (
     <div className='container border border-info bg-info p-2 mb-1 textwhite rounded text-wrap'>
       <div className='w-100'>
         {props.text}
-        <div className='text-right'>- {props.user}</div>
+        <div className='text-right'>- {props.author}</div>
       </div>
     </div>
     <button
