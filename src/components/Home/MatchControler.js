@@ -8,7 +8,7 @@ const MatchControler = props => (
           name='teamOneName'
           type='text'
           placeholder='Team 1 name'
-          value={props.game.teamOneName || ''}
+          value={props.game ? props.game.teamOneName : ''}
           className='form-control mb-1'
           onChange={props.handleChange}
         />
@@ -16,7 +16,7 @@ const MatchControler = props => (
           name='teamOneScore'
           type='number'
           min='0'
-          value={props.game.teamOneScore || 0}
+          value={props.game ? props.game.teamOneScore : 0}
           className='form-control mb-1'
           onChange={props.handleChange}
         />
@@ -26,7 +26,7 @@ const MatchControler = props => (
           name='teamTwoName'
           type='text'
           placeholder='Team 2 name'
-          value={props.game.teamTwoName || ''}
+          value={props.game ? props.game.teamTwoName : ''}
           className='form-control mb-1'
           onChange={props.handleChange}
         />
@@ -34,7 +34,7 @@ const MatchControler = props => (
           name='teamTwoScore'
           type='number'
           min='0'
-          value={props.game.teamTwoScore || 0}
+          value={props.game ? props.game.teamTwoScore : 0}
           className='form-control mb-1'
           onChange={props.handleChange}
         />

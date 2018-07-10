@@ -42,6 +42,7 @@ class App extends Component {
     }
   }
 
+  //TEST IF IT COULD BE DELETED
   getCurrentUser = data => {
     this.setState({ user: data })
   }
