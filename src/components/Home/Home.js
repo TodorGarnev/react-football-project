@@ -97,6 +97,7 @@ export default class Home extends Component {
       <div>
         <Match />
         <Comments
+          user={this.props.user}
           comments={this.state.comments}
           currentComment={this.state.currentComment}
           handleChange={this.handleChange}

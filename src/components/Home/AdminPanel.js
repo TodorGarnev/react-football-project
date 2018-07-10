@@ -110,6 +110,18 @@ export default class AdminPanel extends Component {
       .catch(err => console.log(err))
   }
 
+  updateCheckBox = () => {
+    this.setState({
+      selectedUser: {
+        data: Object.assign(this.state.selectedUser.data, {
+          isAdmin: !this.state.selectedUser.data.isAdmin
+        }),
+        showMe: this.state.selectedUser.showMe,
+        id: this.state.selectedUser.id
+      }
+    })
+  }
+
   handleToggleAdmin = () => {
     this.setState({
       selectedUser: {
@@ -135,10 +147,7 @@ export default class AdminPanel extends Component {
           console.log(response)
           this.setState({
             selectedUser: {
-              data: Object.assign(this.state.selectedUser.data, {
-                isAdmin: !this.state.selectedUser.data.isAdmin,
-                showMe: false
-              })
+              showMe: false
             }
           })
         })
@@ -156,10 +165,7 @@ export default class AdminPanel extends Component {
           console.log(response)
           this.setState({
             selectedUser: {
-              data: Object.assign(this.state.selectedUser.data, {
-                isAdmin: !this.state.selectedUser.data.isAdmin,
-                showMe: false
-              })
+              showMe: false
             }
           })
         })
