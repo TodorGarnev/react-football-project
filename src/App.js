@@ -33,7 +33,7 @@ class App extends Component {
       })
         .then(data => data.json())
         .then(response => {
-          console.log(response)
+          // console.log(response)
           if (response.error === undefined) {
             this.setState({ user: response })
           }

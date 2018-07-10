@@ -11,7 +11,22 @@ export default class Match extends Component {
   }
 
   componentDidMount = () => {
-
+    fetch(`https://baas.kinvey.com/appdata/kid_rJZtL7CMQ/games`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Kinvey ' + localStorage.getItem('token'),
+        'X-Kinvey-API-Version': '3',
+      }
+    })
+      .then(data => data.json())
+      .then(response => {
+        console.log(response)
+        this.setState({
+          game: response[response.length - 1]
+        })
+      })
+      .catch(err => console.log(err))
   }
 
   handleChange = e => {

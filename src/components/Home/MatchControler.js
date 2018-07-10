@@ -43,11 +43,7 @@ const MatchControler = props => (
     <button
       className='btn btn-info mt-4 w-100'
       onClick={props.addGame}
-    >Add new</button>
-    <button
-      className='btn btn-info mt-4 w-100'
-      onClick={props.updateGame}
-    >Update</button>
+    >Save</button>
   </div >
 )
 

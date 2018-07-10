@@ -23,7 +23,7 @@ export default class Home extends Component {
     })
       .then(data => data.json())
       .then(response => {
-        console.log(response)
+        // console.log(response)
         this.setState({
           comments: response
         })
