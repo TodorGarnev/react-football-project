@@ -95,7 +95,9 @@ export default class Home extends Component {
   render = () => {
     return (
       <div>
-        <Match />
+        <Match
+          user={this.props.user}
+        />
         <Comments
           user={this.props.user}
           comments={this.state.comments}

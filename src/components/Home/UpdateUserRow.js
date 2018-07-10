@@ -38,7 +38,7 @@ const UpdateUserRow = props => (
       className='btn btn-info w-100 mt-4'
       onClick={props.handleDelete}
     >Delete</button>
-  </div >
+  </div>
 )
 
 export default UpdateUserRow
