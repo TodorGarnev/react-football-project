@@ -57,9 +57,16 @@ export default class Home extends Component {
         .then(data => data.json())
         .then(response => {
           if (response.error === undefined) {
-            this.setState(({
+            const latestComment = {
+              comment: this.state.currentComment,
+              author: this.props.user.username
+            }
+
+
+            this.setState({
+              comments: [...this.state.comments, latestComment],
               currentComment: ''
-            }))
+            })
           }
         })
         .catch(err => console.log(err))
@@ -67,8 +74,22 @@ export default class Home extends Component {
   }
 
   deleteComment = id => {
-    let filteredComments = this.state.comments.filter(item => item !== this.state.comments[id])
-    this.setState({ comments: filteredComments })
+    fetch(`https://baas.kinvey.com/appdata/kid_rJZtL7CMQ/comments/${id}/?hard=true`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Kinvey ' + localStorage.getItem('token'),
+        'X-Kinvey-API-Version': '3',
+      }
+    })
+      .then(response => {
+        console.log(response)
+        if (response.status === 200) {
+          const filteredComments = this.state.comments.filter(item => item._id !== id)
+          this.setState({ comments: filteredComments })
+        }
+      })
+      .catch(err => console.log(err))
   }
 
   render = () => {
@@ -77,11 +98,10 @@ export default class Home extends Component {
         <Match />
         <Comments
           comments={this.state.comments}
-          text={this.state.currentComment}
+          currentComment={this.state.currentComment}
           handleChange={this.handleChange}
           addComment={this.addComment}
           deleteComment={this.deleteComment}
-          currentComment={this.state.currentComment}
         />
       </div>
     )

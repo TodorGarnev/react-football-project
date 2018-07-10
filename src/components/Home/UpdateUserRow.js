@@ -10,7 +10,7 @@ const UpdateUserRow = props => (
         name='username'
         type='text'
         className='form-control'
-        placeholder={props.username}
+        value={props.username}
         onChange={props.handleChange}
       />
     </div>
@@ -25,16 +25,6 @@ const UpdateUserRow = props => (
         value={props.email}
         onChange={props.handleChange}
       />
-    </div>
-    <div className='input-group input-group-sm mb-3'>
-      <div className='input-group-prepend'>
-        <span className='input-group-text span-width'>Points</span>
-      </div>
-      <input
-        type='number'
-        min='0'
-        className='form-control'
-        placeholder='' />
     </div>
     <button
       className='btn btn-info w-100 mt-4'

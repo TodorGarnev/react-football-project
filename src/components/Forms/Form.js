@@ -50,7 +50,7 @@ export default class Form extends Component {
     if (this.state.form.email === '' || this.state.form.email === undefined || this.state.form.password === '' || this.state.form.password === undefined || this.state.form.password.length < 5 || this.state.form.username === '' || this.state.form.username === undefined) {
       console.log('Please insert correct email!')
     } else {
-      fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ', {
+      fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ`, {
         method: 'POST',
         body: JSON.stringify(this.state.form),
         headers: {
@@ -61,10 +61,11 @@ export default class Form extends Component {
       })
         .then(data => data.json())
         .then(response => {
-          console.log(response)
+          // console.log(response)
           if (response.error === undefined) {
             localStorage.setItem('token', response._kmd.authtoken)
             this.props.history.push('/')
+            this.props.getCurrentUser(response)
           }
         })
         .catch(err => console.log(err))
@@ -74,7 +75,7 @@ export default class Form extends Component {
   handleLogin = e => {
     e.preventDefault()
 
-    fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/login', {
+    fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ/login`, {
       method: 'POST',
       body: JSON.stringify(this.state.form),
       headers: {

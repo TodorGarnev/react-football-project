@@ -3,9 +3,9 @@ import Comment from './Comment'
 
 const Comments = props => {
 
-  const commentsList = props.comments.map(comment =>
+  const commentsList = props.comments.map((comment, index) =>
     <Comment
-      key={comment._id}
+      key={index}
       author={comment.author}
       commentId={comment._id}
       text={comment.comment}
@@ -23,14 +23,14 @@ const Comments = props => {
       </div>
       <div className="container">
         <textarea
-          onChange={props.handleChange}
-          value={props.currentComment}
           className='w-100 p-2 border border-dark rounded'
+          value={props.currentComment}
+          onChange={props.handleChange}
           rows='4'
         />
         <button
-          onClick={props.addComment}
           className='btn btn-info mb-3'
+          onClick={props.addComment}
         >Add comment</button>
       </div>
 

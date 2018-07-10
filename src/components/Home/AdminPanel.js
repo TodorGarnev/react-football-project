@@ -67,12 +67,12 @@ export default class AdminPanel extends Component {
   }
 
   handleUpdate = () => {
-    console.log(this.state.selectedUser);
-    // const users = this.state.users;
-    // const userId = users.findIndex(x => x._id === this.state.selectedUser._id);
-    // const userToUpdate = users[userId];
-    // const test = Object.keys(userToUpdate.data).filter(el => userToUpdate.data[el] !== this.state.selectedUser[el]);
-    // console.log(test);
+    console.log(this.state.selectedUser)
+    // const users = this.state.users
+    // const userId = users.findIndex(x => x._id === this.state.selectedUser._id)
+    // const userToUpdate = users[userId]
+    // const test = Object.keys(userToUpdate.data).filter(el => userToUpdate.data[el] !== this.state.selectedUser[el])
+    // console.log(test)
 
     fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ/${this.state.selectedUser.id}`, {
       method: 'PUT',
@@ -89,14 +89,14 @@ export default class AdminPanel extends Component {
       .then(data => data.json())
       .then(response => {
         if (response.error === undefined) {
-          const users = this.state.users;
-          const userId = users.findIndex(x => x._id === response._id);
+          const users = this.state.users
+          const userId = users.findIndex(x => x._id === response._id)
           if (userId > -1) {
-            const userToUpdate = users[userId];
-            userToUpdate.username = response.username;
-            userToUpdate.email = response.email;
+            const userToUpdate = users[userId]
+            userToUpdate.username = response.username
+            userToUpdate.email = response.email
 
-            users[userId] = userToUpdate;
+            users[userId] = userToUpdate
           }
 
           this.setState({
@@ -133,13 +133,14 @@ export default class AdminPanel extends Component {
         .then(data => data.json())
         .then(response => {
           console.log(response)
-          if (response.error === undefined) {
-            this.setState({
-              selectedUser: {
+          this.setState({
+            selectedUser: {
+              data: Object.assign(this.state.selectedUser.data, {
+                isAdmin: !this.state.selectedUser.data.isAdmin,
                 showMe: false
-              }
-            })
-          }
+              })
+            }
+          })
         })
         .catch(err => console.log(err))
     } else if (this.state.selectedUser.data.isAdmin === false) {
@@ -153,13 +154,14 @@ export default class AdminPanel extends Component {
       })
         .then(response => {
           console.log(response)
-          if (response.error === undefined) {
-            this.setState({
-              selectedUser: {
+          this.setState({
+            selectedUser: {
+              data: Object.assign(this.state.selectedUser.data, {
+                isAdmin: !this.state.selectedUser.data.isAdmin,
                 showMe: false
-              }
-            })
-          }
+              })
+            }
+          })
         })
         .catch(err => console.log(err))
     }
@@ -177,7 +179,10 @@ export default class AdminPanel extends Component {
       .then(response => {
         console.log(response)
         if (response.error === undefined) {
+          const filteredUsers = this.state.users.filter(item => item._id !== this.state.selectedUser.id)
+          console.log(filteredUsers)
           this.setState({
+            users: filteredUsers,
             selectedUser: {
               showMe: false
             }
