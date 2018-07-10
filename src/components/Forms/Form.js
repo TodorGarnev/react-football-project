@@ -8,26 +8,25 @@ export default class Form extends Component {
     super(props)
 
     this.state = {
-      route: '',
       form: {}
     }
   }
 
   // setRoute = route => this.setState({route})
 
-  setLogin = e => {
-    e.preventDefault()
-    this.setState({
-      route: 'login'
-    })
-  }
+  // setLogin = e => {
+  //   e.preventDefault()
+  //   this.setState({
+  //     route: 'login'
+  //   })
+  // }
 
-  setSignUp = e => {
-    e.preventDefault()
-    this.setState({
-      route: ''
-    })
-  }
+  // setSignUp = e => {
+  //   e.preventDefault()
+  //   this.setState({
+  //     route: ''
+  //   })
+  // }
 
   handleChange = e => {
     const name = e.target.name
@@ -97,24 +96,25 @@ export default class Form extends Component {
   }
 
   showForm = () => {
-    if (this.state.route === 'login') {
+    if (this.props.location.pathname === '/login') {
       return <LogIn
         handleChange={this.handleChange}
         handleLogin={this.handleLogin}
       />
+    } else if (this.props.location.pathname === '/signup') {
+      return <SignUp
+        handleChange={this.handleChange}
+        handleSignUp={this.handleSignUp}
+      />
     }
-
-    return <SignUp
-      handleChange={this.handleChange}
-      handleSignUp={this.handleSignUp}
-    />
   }
 
   render = () => (
     <div className='form'>
       {this.showForm()}
       <Clarification
-        route={this.state.route}
+        route={this.props.location.pathname}
+        history={this.props.history}
         setLogin={this.setLogin}
         setSignUp={this.setSignUp}
       />

@@ -47,7 +47,7 @@ export default class Match extends Component {
   }
 
   addGame = () => {
-    if (this.state.game.teamOneName === undefined || this.state.game.teamTwoName === undefined || this.state.game.teamOneName === '' || this.state.game.teamTwoName === '') {
+    if (this.state.game.teamOneName === '' || this.state.game.teamTwoName === '') {
       console.log('Please fill the name of both teams!')
     } else {
       fetch(`https://baas.kinvey.com/appdata/kid_rJZtL7CMQ/games`, {

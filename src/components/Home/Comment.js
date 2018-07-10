@@ -2,7 +2,7 @@ import React from 'react'
 
 const Comment = props => (
   <div>
-    <div className='container border border-info bg-info p-2 mb-3 textwhite rounded text-wrap'>
+    <div className='container border border-info bg-info p-2 mb-3 textwhite rounded'>
       <p className='w-100'>
         {props.text}
         <span className='text-right d-block'>- {props.author}</span>

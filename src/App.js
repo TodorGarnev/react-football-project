@@ -20,29 +20,6 @@ class App extends Component {
     }
   }
 
-
-  componentDidMount = () => {
-    if (localStorage.getItem('token')) {
-      fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/_me', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Kinvey ' + localStorage.getItem('token'),
-          'X-Kinvey-API-Version': '3',
-        }
-      })
-        .then(data => data.json())
-        .then(response => {
-          // console.log(response)
-          if (response.error === undefined) {
-            this.setState({ user: response })
-          }
-        })
-        .catch(err => console.log(err))
-    }
-  }
-
-  //TEST IF IT COULD BE DELETED
   getCurrentUser = data => {
     this.setState({ user: data })
   }
@@ -55,12 +32,12 @@ class App extends Component {
         <section className='jumbotron main'>
           <Switch>
             <Route path='/' exact render={() => (
-              localStorage.getItem('token') ? (<Redirect to='/home' />) : (<Redirect to='/login' />)
+              localStorage.getItem('token') ? (<Redirect to='/home' />) : (<Redirect to='/signup' />)
             )} />
-            <Route path='/home' exact render={props =>
-              <Home
+            <Route path='/signup' exact render={props =>
+              <Form
                 {...props}
-                user={this.state.user}
+                getCurrentUser={this.getCurrentUser}
               />
             }
             />
@@ -71,14 +48,21 @@ class App extends Component {
               />
             }
             />
+            <Route path='/home' exact render={props =>
+              <Home
+                {...props}
+                user={this.state.user}
+              />
+            }
+            />
             <Route path='/profile' exact render={props =>
               <Profile
                 {...props}
                 user={this.state.user}
               />
             } />
-            <Route path='/rules' exact component={Rules} />
             <Route path='/dashboard' exact component={AdminPanel} />
+            <Route path='/rules' exact component={Rules} />
             <Redirect to='/' />
           </Switch>
         </section>
