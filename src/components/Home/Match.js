@@ -7,8 +7,10 @@ export default class Match extends Component {
 
     this.state = {
       game: {
-        teamOneName: '',
-        teamTwoName: ''
+        teamOneName: 'Team 1',
+        teamOneScore: '0',
+        teamTwoName: 'Team 2',
+        teamTwoScore: '0'
       }
     }
   }
@@ -25,9 +27,10 @@ export default class Match extends Component {
       .then(data => data.json())
       .then(response => {
         console.log(response)
-        this.setState({
-          game: response[response.length - 1]
-        })
+        if (response.length > 0)
+          this.setState({
+            game: response[response.length - 1]
+          })
       })
       .catch(err => console.log(err))
   }
@@ -37,7 +40,7 @@ export default class Match extends Component {
     const value = e.target.value
     const newState = {}
     newState[name] = value
-    console.log(this.state)
+
     this.setState({
       game: Object.assign(this.state.game, newState)
     })
@@ -76,12 +79,12 @@ export default class Match extends Component {
     <div className='mb-5'>
       <div className='d-sm-flex w-100 ml-auto mr-auto mb-5 text-white'>
         <div className='bg-info p-2 w-100 d-flex justify-content-between display-4'>
-          <span>{this.state.game ? this.state.game.teamOneName : 'Team 1'}</span>
-          <span>{this.state.game ? this.state.game.teamOneScore : '?'}</span>
+          <span>{this.state.game.teamOneName}</span>
+          <span>{this.state.game.teamOneScore}</span>
         </div>
         <div className='bg-info p-2 w-100 d-flex justify-content-between display-4 flex-sm-row-reverse'>
-          <span>{this.state.game ? this.state.game.teamTwoName : 'Team 2'}</span>
-          <span >{this.state.game ? this.state.game.teamTwoScore : '?'}</span>
+          <span>{this.state.game.teamTwoName || 'Team 2'}</span>
+          <span >{this.state.game.teamTwoScore || '?'}</span>
         </div>
       </div>
       {this.props.user._kmd ?

@@ -2,13 +2,14 @@ import React from 'react'
 
 const MatchControler = props => (
   <div className='container ml-auto mr-auto bg-secondary p-4'>
+    <h5 className='text-white text-center mb-5'>You can change the teams or the score below:</h5>
     <div className='d-sm-flex w-100 justify-content-between'>
       <div className='team-one w-100 mr-5'>
         <input
           name='teamOneName'
           type='text'
           placeholder='Team 1 name'
-          value={props.game ? props.game.teamOneName : ''}
+          value={props.game.teamOneName}
           className='form-control mb-1'
           onChange={props.handleChange}
         />
@@ -16,7 +17,7 @@ const MatchControler = props => (
           name='teamOneScore'
           type='number'
           min='0'
-          value={props.game ? props.game.teamOneScore : 0}
+          value={props.game.teamOneScore}
           className='form-control mb-1'
           onChange={props.handleChange}
         />
@@ -26,7 +27,7 @@ const MatchControler = props => (
           name='teamTwoName'
           type='text'
           placeholder='Team 2 name'
-          value={props.game ? props.game.teamTwoName : ''}
+          value={props.game.teamTwoName}
           className='form-control mb-1'
           onChange={props.handleChange}
         />
@@ -34,7 +35,7 @@ const MatchControler = props => (
           name='teamTwoScore'
           type='number'
           min='0'
-          value={props.game ? props.game.teamTwoScore : 0}
+          value={props.game.teamTwoScore}
           className='form-control mb-1'
           onChange={props.handleChange}
         />

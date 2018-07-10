@@ -16,7 +16,7 @@ const Comments = props => {
 
   return (
     <div className='jumbotron bg-secondary text-white'>
-      <h4 className='container text-center bg-info p-2 mb-4 rounded'>
+      <h4 className='container text-center bg-info p-4 mb-5'>
         What are your thoughts about this game?
     </h4>
       <div className='container'>
