@@ -129,10 +129,12 @@ export default class AdminPanel extends Component {
           console.log(response)
           const updatedUserIndex = this.state.users.findIndex(x => x._id === userId);
           const users = this.state.users.slice(0)
+
           if (updatedUserIndex > -1) {
             users[updatedUserIndex]._kmd.roles = [response];
             users[updatedUserIndex]._kmd = Object.assign({}, users[updatedUserIndex]._kmd);
           }
+
           this.setState({
             selectedUser: {
               showMe: false
