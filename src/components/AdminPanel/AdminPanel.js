@@ -67,13 +67,6 @@ export default class AdminPanel extends Component {
   }
 
   handleUpdate = () => {
-    console.log(this.state.selectedUser)
-    // const users = this.state.users
-    // const userId = users.findIndex(x => x._id === this.state.selectedUser._id)
-    // const userToUpdate = users[userId]
-    // const test = Object.keys(userToUpdate.data).filter(el => userToUpdate.data[el] !== this.state.selectedUser[el])
-    // console.log(test)
-
     fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ/${this.state.selectedUser.id}`, {
       method: 'PUT',
       body: JSON.stringify({
@@ -110,19 +103,8 @@ export default class AdminPanel extends Component {
       .catch(err => console.log(err))
   }
 
-  updateCheckBox = () => {
-    this.setState({
-      selectedUser: {
-        data: Object.assign(this.state.selectedUser.data, {
-          isAdmin: !this.state.selectedUser.data.isAdmin
-        }),
-        showMe: this.state.selectedUser.showMe,
-        id: this.state.selectedUser.id
-      }
-    })
-  }
-
   handleToggleAdmin = () => {
+    const userId = this.state.selectedUser.id;
     this.setState({
       selectedUser: {
         data: Object.assign(this.state.selectedUser.data, {
@@ -145,10 +127,17 @@ export default class AdminPanel extends Component {
         .then(data => data.json())
         .then(response => {
           console.log(response)
+          const updatedUserIndex = this.state.users.findIndex(x => x._id === userId);
+          const users = this.state.users.slice(0)
+          if (updatedUserIndex > -1) {
+            users[updatedUserIndex]._kmd.roles = [response];
+            users[updatedUserIndex]._kmd = Object.assign({}, users[updatedUserIndex]._kmd);
+          }
           this.setState({
             selectedUser: {
               showMe: false
-            }
+            },
+            users: users
           })
         })
         .catch(err => console.log(err))
@@ -163,10 +152,17 @@ export default class AdminPanel extends Component {
       })
         .then(response => {
           console.log(response)
+          const updatedUserIndex = this.state.users.findIndex(x => x._id === userId);
+          const users = this.state.users.slice(0)
+          if (updatedUserIndex > -1) {
+            users[updatedUserIndex]._kmd.roles = [];
+            users[updatedUserIndex]._kmd = Object.assign({}, users[updatedUserIndex]._kmd);
+          }
           this.setState({
             selectedUser: {
               showMe: false
-            }
+            },
+            users: users
           })
         })
         .catch(err => console.log(err))
