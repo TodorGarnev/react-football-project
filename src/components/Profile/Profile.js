@@ -12,13 +12,13 @@ const Profile = props => (
         <div className="input-group-prepend">
           <span className="input-group-text span-width">Username</span>
         </div>
-        <input type="text" className="form-control" placeholder={props.username} disabled />
+        <input type="text" className="form-control" placeholder={props.user.username} disabled />
       </div>
       <div className="input-group input-group-sm mb-3">
         <div className="input-group-prepend">
           <span className="input-group-text span-width">Email</span>
         </div>
-        <input type="text" className="form-control" placeholder={props.email} disabled />
+        <input type="text" className="form-control" placeholder={props.user.email} disabled />
       </div>
     </div>
   </div>

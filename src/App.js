@@ -31,36 +31,34 @@ class App extends Component {
 
         <section className='jumbotron main'>
           <Switch>
-            <Route path='/' exact render={() => (
+            <Route path='/' exact render={() =>
               localStorage.getItem('token') ? (<Redirect to='/home' />) : (<Redirect to='/signup' />)
-            )} />
+            }
+            />
             <Route path='/signup' exact render={props =>
               <Form
                 {...props}
                 getCurrentUser={this.getCurrentUser}
-              />
-            }
+              />}
             />
             <Route path='/login' exact render={props =>
               <Form
                 {...props}
                 getCurrentUser={this.getCurrentUser}
-              />
-            }
+              />}
             />
             <Route path='/home' exact render={props =>
               <Home
                 {...props}
                 user={this.state.user}
-              />
-            }
+              />}
             />
             <Route path='/profile' exact render={props =>
               <Profile
                 {...props}
                 user={this.state.user}
-              />
-            } />
+              />}
+            />
             <Route path='/dashboard' exact component={AdminPanel} />
             <Route path='/rules' exact component={Rules} />
             <Redirect to='/' />

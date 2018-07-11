@@ -95,8 +95,6 @@ export default class Form extends Component {
       <Clarification
         route={this.props.location.pathname}
         history={this.props.history}
-        setLogin={this.setLogin}
-        setSignUp={this.setSignUp}
       />
     </div>
   )
