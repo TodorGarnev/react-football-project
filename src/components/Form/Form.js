@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 import SignUp from './SignUp'
 import LogIn from './LogIn'
 import Clarification from './Clarification'
+import Validation from './Validation'
 
 export default class Form extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      form: {}
+      form: {},
+      error: ''
     }
   }
 
@@ -96,6 +98,12 @@ export default class Form extends Component {
         route={this.props.location.pathname}
         history={this.props.history}
       />
+      {this.state.error &&
+        <Validation
+          error={this.state.error}
+        />
+      }
+
     </div>
   )
 

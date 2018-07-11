@@ -104,7 +104,6 @@ export default class AdminPanel extends Component {
   }
 
   handleToggleAdmin = () => {
-    const userId = this.state.selectedUser.id;
     this.setState({
       selectedUser: {
         data: Object.assign(this.state.selectedUser.data, {
@@ -115,60 +114,32 @@ export default class AdminPanel extends Component {
       }
     })
 
-    if (this.state.selectedUser.data.isAdmin === true) {
-      fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/' + this.state.selectedUser.id + '/roles/c3d31cd1-28b3-436d-b7f9-9611e6d4dcfe', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Basic a2lkX3JKWnRMN0NNUTo3Mjg4NTAyMjc0YzI0YmRmOWE5YmE5ZWE3ZTM3ZGFlZg==',
-          'X-Kinvey-API-Version': '3',
-        }
-      })
-        .then(data => data.json())
-        .then(response => {
-          console.log(response)
-          const updatedUserIndex = this.state.users.findIndex(x => x._id === userId);
-          const users = this.state.users.slice(0)
+    fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/' + this.state.selectedUser.id + '/roles/c3d31cd1-28b3-436d-b7f9-9611e6d4dcfe', {
+      method: (this.state.selectedUser.data.isAdmin ? 'PUT' : 'DELETE'),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Basic a2lkX3JKWnRMN0NNUTo3Mjg4NTAyMjc0YzI0YmRmOWE5YmE5ZWE3ZTM3ZGFlZg==',
+        'X-Kinvey-API-Version': '3',
+      }
+    })
+      .then(response => {
+        console.log(response)
+        const updatedUserIndex = this.state.users.findIndex(x => x._id === this.state.selectedUser.id)
+        const users = this.state.users.slice(0)
 
-          if (updatedUserIndex > -1) {
-            users[updatedUserIndex]._kmd.roles = [response];
-            users[updatedUserIndex]._kmd = Object.assign({}, users[updatedUserIndex]._kmd);
-          }
-
-          this.setState({
-            selectedUser: {
-              showMe: false
-            },
-            users: users
-          })
-        })
-        .catch(err => console.log(err))
-    } else if (this.state.selectedUser.data.isAdmin === false) {
-      fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/' + this.state.selectedUser.id + '/roles/c3d31cd1-28b3-436d-b7f9-9611e6d4dcfe', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Basic a2lkX3JKWnRMN0NNUTo3Mjg4NTAyMjc0YzI0YmRmOWE5YmE5ZWE3ZTM3ZGFlZg==',
-          'X-Kinvey-API-Version': '3',
+        if (updatedUserIndex > -1) {
+          users[updatedUserIndex]._kmd.roles = (this.state.selectedUser.data.isAdmin ? [response] : [])
+          users[updatedUserIndex]._kmd = Object.assign({}, users[updatedUserIndex]._kmd)
         }
-      })
-        .then(response => {
-          console.log(response)
-          const updatedUserIndex = this.state.users.findIndex(x => x._id === userId);
-          const users = this.state.users.slice(0)
-          if (updatedUserIndex > -1) {
-            users[updatedUserIndex]._kmd.roles = [];
-            users[updatedUserIndex]._kmd = Object.assign({}, users[updatedUserIndex]._kmd);
-          }
-          this.setState({
-            selectedUser: {
-              showMe: false
-            },
-            users: users
-          })
+
+        this.setState({
+          selectedUser: {
+            showMe: false
+          },
+          users: users
         })
-        .catch(err => console.log(err))
-    }
+      })
+      .catch(err => console.log(err))
   }
 
   handleDelete = () => {

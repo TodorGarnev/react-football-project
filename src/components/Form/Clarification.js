@@ -18,7 +18,7 @@ const Clarification = props => {
     : null
 
   return (
-    <div className='clarification alert alert-warning'>
+    <div className='text-center alert alert-warning'>
       {login}
       {signup}
     </div>
