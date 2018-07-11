@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Match from './Match'
-import Comments from './Comments'
+import Match from './Match/Match'
+import Comments from './Comments/Comments'
 
 export default class Home extends Component {
   constructor(props) {

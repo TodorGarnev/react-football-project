@@ -12,22 +12,6 @@ export default class Form extends Component {
     }
   }
 
-  // setRoute = route => this.setState({route})
-
-  // setLogin = e => {
-  //   e.preventDefault()
-  //   this.setState({
-  //     route: 'login'
-  //   })
-  // }
-
-  // setSignUp = e => {
-  //   e.preventDefault()
-  //   this.setState({
-  //     route: ''
-  //   })
-  // }
-
   handleChange = e => {
     const name = e.target.name
     const value = e.target.value
@@ -37,10 +21,6 @@ export default class Form extends Component {
     this.setState({
       form: Object.assign(this.state.form, newState)
     })
-
-    // this.setState({
-    //   form[name]: value
-    // })
   }
 
   handleSignUp = e => {

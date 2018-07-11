@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import Home from './components/Home/Home'
-import Form from './components/Forms/Form'
+import Form from './components/Form/Form'
 import Navigation from './components/Header/Navigation'
-import Profile from './components/Home/Profile'
-import AdminPanel from './components/Home/AdminPanel'
-import Rules from './components/Home/Rules'
-import Footer from './components/Header/Footer'
+import Profile from './components/Profile/Profile'
+import AdminPanel from './components/AdminPanel/AdminPanel'
+import Rules from './components/Rules/Rules'
+import Footer from './components/Footer/Footer'
 
 import './App.css'
 
