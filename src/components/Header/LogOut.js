@@ -5,7 +5,7 @@ const LogOut = props => {
   const logOut = e => {
     e.preventDefault()
 
-    fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/_logout', {
+    fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ/_logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ const LogOut = props => {
     <div>
       <span
         className='text-white ml-2'
-      >Hello, {props.user.username}! | </span>
+      >Hello, <strong>{props.user.username}</strong>! | </span>
       <a
         href=''
         className='text-white'

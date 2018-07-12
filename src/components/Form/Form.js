@@ -28,9 +28,24 @@ export default class Form extends Component {
   handleSignUp = e => {
     e.preventDefault()
 
-    if (this.state.form.email === '' || this.state.form.email === undefined || this.state.form.password === '' || this.state.form.password === undefined || this.state.form.password.length < 5 || this.state.form.username === '' || this.state.form.username === undefined) {
-      console.log('Please insert correct email!')
-    } else {
+    const email = this.state.form.email
+    const username = this.state.form.email
+    const password = this.state.form.password
+    const emailCheck = /(\w+)\@(\w+)\.[a-zA-Z]/g
+    const testEmail = emailCheck.test(email)
+
+    if (email === '' || email === undefined ||
+      username === '' || username === undefined ||
+      password === '' || password === undefined
+    ) {
+      this.setState({ error: 'Please fill out all the fields!' })
+    } else if (password.length < 5) {
+      this.setState({ error: 'Your password must be at least 5 symbols!' })
+    }
+    else if (!testEmail) {
+      this.setState({ error: 'Please enter a valid email!' })
+    }
+    else {
       fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ`, {
         method: 'POST',
         body: JSON.stringify(this.state.form),
@@ -42,11 +57,12 @@ export default class Form extends Component {
       })
         .then(data => data.json())
         .then(response => {
-          // console.log(response)
           if (response.error === undefined) {
             localStorage.setItem('token', response._kmd.authtoken)
             this.props.history.push('/')
             this.props.getCurrentUser(response)
+          } else {
+            this.setState({ error: response.description })
           }
         })
         .catch(err => console.log(err))
@@ -72,6 +88,8 @@ export default class Form extends Component {
           localStorage.setItem('token', response._kmd.authtoken)
           this.props.history.push('/')
           this.props.getCurrentUser(response)
+        } else {
+          this.setState({ error: response.description })
         }
       })
       .catch(err => console.log(err))

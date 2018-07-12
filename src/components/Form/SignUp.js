@@ -3,7 +3,7 @@ import React from 'react'
 const SignUp = props => (
   <form className='form'>
     <div className='form-group'>
-      <label htmlFor='signup-email'>Email address</label>
+      <label htmlFor='signup-email'>Email address*</label>
       <input
         name='email'
         type='email'
@@ -14,7 +14,7 @@ const SignUp = props => (
       />
     </div>
     <div className='form-group'>
-      <label htmlFor='signup-password'>Password</label>
+      <label htmlFor='signup-password'>Password*</label>
       <input
         name='password'
         type='password'
@@ -25,7 +25,7 @@ const SignUp = props => (
       />
     </div>
     <div className='form-group'>
-      <label htmlFor='signup-username'>Username</label>
+      <label htmlFor='signup-username'>Username*</label>
       <input
         name='username'
         type='text'

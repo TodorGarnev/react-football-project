@@ -82,6 +82,7 @@ export default class Match extends Component {
           <span>{this.state.game.teamOneName}</span>
           <span>{this.state.game.teamOneScore}</span>
         </div>
+        <span className='bg-info p-1 display-4'>-</span>
         <div className='bg-info p-2 w-100 d-flex justify-content-between display-4 flex-sm-row-reverse'>
           <span>{this.state.game.teamTwoName}</span>
           <span >{this.state.game.teamTwoScore}</span>

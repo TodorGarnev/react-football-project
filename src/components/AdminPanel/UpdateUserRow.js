@@ -10,7 +10,7 @@ const UpdateUserRow = props => (
         name='username'
         type='text'
         className='form-control'
-        value={props.username}
+        value={props.selectedUser.data.username}
         onChange={props.handleChange}
       />
     </div>
@@ -22,7 +22,7 @@ const UpdateUserRow = props => (
         name='email'
         type='email'
         className='form-control'
-        value={props.email}
+        value={props.selectedUser.data.email}
         onChange={props.handleChange}
       />
     </div>

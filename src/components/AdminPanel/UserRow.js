@@ -2,9 +2,8 @@ import React from 'react'
 
 const UserRow = props => (
   <tr>
-    <td>{props.username}</td>
-    <td>{props.email}</td>
-    <td>0</td>
+    <td>{props.userData.username}</td>
+    <td>{props.userData.email}</td>
     <td>
       <input
         type='checkbox'

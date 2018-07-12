@@ -7,9 +7,7 @@ const Comments = props => {
     <Comment
       key={index}
       user={props.user}
-      author={comment.author}
-      commentId={comment._id}
-      text={comment.comment}
+      commentData={comment}
       deleteComment={props.deleteComment}
     />
   )

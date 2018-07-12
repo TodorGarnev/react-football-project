@@ -17,7 +17,7 @@ export default class AdminPanel extends Component {
   }
 
   componentDidMount = () => {
-    fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ', {
+    fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ export default class AdminPanel extends Component {
       }
     })
 
-    fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/' + this.state.selectedUser.id + '/roles/c3d31cd1-28b3-436d-b7f9-9611e6d4dcfe', {
+    fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ/${this.state.selectedUser.id}/roles/c3d31cd1-28b3-436d-b7f9-9611e6d4dcfe`, {
       method: (this.state.selectedUser.data.isAdmin ? 'PUT' : 'DELETE'),
       headers: {
         'Content-Type': 'application/json',
@@ -143,7 +143,7 @@ export default class AdminPanel extends Component {
   }
 
   handleDelete = () => {
-    fetch('https://baas.kinvey.com/user/kid_rJZtL7CMQ/' + this.state.selectedUser.id + '?hard=true', {
+    fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ/${this.state.selectedUser.id}?hard=true`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -172,8 +172,7 @@ export default class AdminPanel extends Component {
       <UserRow
         key={user._id}
         userId={user._id}
-        username={user.username}
-        email={user.email}
+        userData={user}
         checked={(user._kmd.roles !== undefined && user._kmd.roles.length > 0) ? true : false}
         getUser={this.getUser}
       />
@@ -197,9 +196,7 @@ export default class AdminPanel extends Component {
         </table>
         {this.state.selectedUser.showMe &&
           <UpdateUserRow
-            username={this.state.selectedUser.data.username}
-            email={this.state.selectedUser.data.email}
-            checked={this.state.selectedUser.data.isAdmin}
+            selectedUser={this.state.selectedUser}
             handleChange={this.handleChange}
             handleUpdate={this.handleUpdate}
             handleToggleAdmin={this.handleToggleAdmin}
