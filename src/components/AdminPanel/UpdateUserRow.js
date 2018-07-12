@@ -29,7 +29,7 @@ const UpdateUserRow = props => (
     <button
       className='btn btn-info w-100 mt-4'
       onClick={props.handleUpdate}
-    >Update Login Info</button>
+    >Update Profile Info</button>
     <button
       className='btn btn-info w-100 mt-4'
       onClick={props.handleToggleAdmin}
@@ -38,6 +38,10 @@ const UpdateUserRow = props => (
       className='btn btn-info w-100 mt-4'
       onClick={props.handleDelete}
     >Delete</button>
+    <button
+      className='btn btn-info w-100 mt-4 mb-4'
+      onClick={props.handleClose}
+    >Close</button>
   </div>
 )
 

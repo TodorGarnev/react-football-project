@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Validation = props => (
-  <div className='text-center alert alert-danger'>
+  <div className='text-center alert alert-danger mt-2'>
     {props.error}
   </div>
 )

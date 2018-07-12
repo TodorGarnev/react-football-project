@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import UserRow from './UserRow'
 import UpdateUserRow from './UpdateUserRow'
+import Validation from '../Form/Validation'
 
 export default class AdminPanel extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ export default class AdminPanel extends Component {
         data: {},
         showMe: false,
         id: ''
-      }
+      },
+      error: ''
     }
   }
 
@@ -98,6 +100,8 @@ export default class AdminPanel extends Component {
               showMe: false
             }
           })
+        } else {
+          this.setState({ error: response.description })
         }
       })
       .catch(err => console.log(err))
@@ -167,6 +171,14 @@ export default class AdminPanel extends Component {
       .catch(err => console.log(err))
   }
 
+  handleClose = () => {
+    this.setState({
+      selectedUser: {
+        showMe: false
+      }
+    })
+  }
+
   render = () => {
     const allUsers = this.state.users.map(user =>
       <UserRow
@@ -201,6 +213,12 @@ export default class AdminPanel extends Component {
             handleUpdate={this.handleUpdate}
             handleToggleAdmin={this.handleToggleAdmin}
             handleDelete={this.handleDelete}
+            handleClose={this.handleClose}
+          />
+        }
+        {this.state.error &&
+          < Validation
+            error={this.state.error}
           />
         }
       </div>

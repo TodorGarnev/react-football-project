@@ -25,14 +25,18 @@ export default class Form extends Component {
     })
   }
 
+  hideError = () => {
+    this.setState({ error: '' })
+  }
+
   handleSignUp = e => {
     e.preventDefault()
 
     const email = this.state.form.email
     const username = this.state.form.email
     const password = this.state.form.password
-    const emailCheck = /(\w+)\@(\w+)\.[a-zA-Z]/g
-    const testEmail = emailCheck.test(email)
+    const emailRegEx = /(\w+)\@(\w+)\.[a-zA-Z]/g
+    const testEmail = emailRegEx.test(email)
 
     if (email === '' || email === undefined ||
       username === '' || username === undefined ||
@@ -114,11 +118,13 @@ export default class Form extends Component {
       {this.showForm()}
       <Clarification
         route={this.props.location.pathname}
+        error={this.state.error}
         history={this.props.history}
       />
       {this.state.error &&
         <Validation
           error={this.state.error}
+          hideError={this.hideError}
         />
       }
 

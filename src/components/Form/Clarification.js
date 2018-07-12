@@ -5,6 +5,7 @@ const Clarification = props => {
     <div>If you don't have an account you can sign up
       <a href='' onClick={e => {
         e.preventDefault()
+        props.hideError
         props.history.push('/signup')
       }}> here!</a></div>
     : null
@@ -13,6 +14,7 @@ const Clarification = props => {
     <div>If you already have an account you can log in
       <a href='' onClick={e => {
         e.preventDefault()
+        props.hideError
         props.history.push('/login')
       }}> here!</a></div>
     : null
