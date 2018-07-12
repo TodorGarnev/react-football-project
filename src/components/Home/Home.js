@@ -92,6 +92,23 @@ export default class Home extends Component {
       .catch(err => console.log(err))
   }
 
+  deleteAllComments = () => {
+    fetch(`https://baas.kinvey.com/appdata/kid_rJZtL7CMQ/comments?query={}&sort=id`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Basic a2lkX3JKWnRMN0NNUTo3Mjg4NTAyMjc0YzI0YmRmOWE5YmE5ZWE3ZTM3ZGFlZg==',
+        'X-Kinvey-API-Version': '3',
+      }
+    })
+      .then(response => {
+        console.log(response)
+        const comments = []
+        this.setState({ comments: comments })
+      })
+      .catch(err => console.log(err))
+  }
+
   render = () => {
     return (
       <div>
@@ -105,6 +122,7 @@ export default class Home extends Component {
           handleChange={this.handleChange}
           addComment={this.addComment}
           deleteComment={this.deleteComment}
+          deleteAllComments={this.deleteAllComments}
         />
       </div>
     )

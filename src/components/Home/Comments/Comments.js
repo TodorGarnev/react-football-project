@@ -31,6 +31,13 @@ const Comments = props => {
           className='btn btn-info mb-3'
           onClick={props.addComment}
         >Add comment</button>
+        {props.user._kmd ?
+          (props.user._kmd.roles !== undefined && props.user._kmd.roles.length > 0) &&
+          <button
+            className='btn btn-info mt-4 w-100'
+            onClick={props.deleteAllComments}
+          >Delete all comments</button>
+          : ''}
       </div>
 
     </div>
