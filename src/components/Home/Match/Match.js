@@ -83,8 +83,8 @@ export default class Match extends Component {
           <span>{this.state.game.teamOneScore}</span>
         </div>
         <div className='bg-info p-2 w-100 d-flex justify-content-between display-4 flex-sm-row-reverse'>
-          <span>{this.state.game.teamTwoName || 'Team 2'}</span>
-          <span >{this.state.game.teamTwoScore || '?'}</span>
+          <span>{this.state.game.teamTwoName}</span>
+          <span >{this.state.game.teamTwoScore}</span>
         </div>
       </div>
       {this.props.user._kmd ?
