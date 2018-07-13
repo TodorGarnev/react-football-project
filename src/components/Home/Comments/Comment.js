@@ -12,7 +12,7 @@ const Comment = props => (
       (props.user._kmd.roles !== undefined && props.user._kmd.roles.length > 0) &&
       <button
         className='btn btn-info mb-4'
-        onClick={() => props.deleteComment(props.commentData.commentId)}
+        onClick={() => props.deleteComment(props.commentData._id)}
       >Delete</button>
       : ''}
 

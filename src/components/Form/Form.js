@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import SignUp from './SignUp'
 import LogIn from './LogIn'
 import Clarification from './Clarification'
-import Validation from './Validation'
+import Validation from '../Validation/Validation'
 
 export default class Form extends Component {
   constructor(props) {
@@ -127,7 +127,6 @@ export default class Form extends Component {
           hideError={this.hideError}
         />
       }
-
     </div>
   )
 

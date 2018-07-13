@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import UserRow from './UserRow'
 import UpdateUserRow from './UpdateUserRow'
-import Validation from '../Form/Validation'
+import Validation from '../Validation/Validation'
 
 export default class AdminPanel extends Component {
   constructor(props) {
@@ -30,9 +30,7 @@ export default class AdminPanel extends Component {
       .then(data => data.json())
       .then(response => {
         console.log(response)
-        this.setState({
-          users: response
-        })
+        this.setState({ users: response })
       })
       .catch(err => console.log(err))
   }
@@ -69,42 +67,46 @@ export default class AdminPanel extends Component {
   }
 
   handleUpdate = () => {
-    fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ/${this.state.selectedUser.id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        username: this.state.selectedUser.data.username,
-        email: this.state.selectedUser.data.email,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Kinvey ' + localStorage.getItem('token'),
-        'X-Kinvey-API-Version': '3',
-      }
-    })
-      .then(data => data.json())
-      .then(response => {
-        if (response.error === undefined) {
-          const users = this.state.users
-          const userId = users.findIndex(x => x._id === response._id)
-          if (userId > -1) {
-            const userToUpdate = users[userId]
-            userToUpdate.username = response.username
-            userToUpdate.email = response.email
+    const email = this.state.selectedUser.data.email
+    const emailRegEx = /(\w+)\@(\w+)\.[a-zA-Z]/g
+    const testEmail = emailRegEx.test(email)
+    console.log(testEmail)
 
-            users[userId] = userToUpdate
-          }
-
-          this.setState({
-            users: users.slice(0),
-            selectedUser: {
-              showMe: false
-            }
-          })
-        } else {
-          this.setState({ error: response.description })
+    if (!testEmail) {
+      this.setState({ error: 'Please enter a valid email!' })
+    } else {
+      fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ/${this.state.selectedUser.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          username: this.state.selectedUser.data.username,
+          email: this.state.selectedUser.data.email,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Kinvey ' + localStorage.getItem('token'),
+          'X-Kinvey-API-Version': '3',
         }
       })
-      .catch(err => console.log(err))
+        .then(data => data.json())
+        .then(response => {
+          if (response.error === undefined) {
+            const users = this.state.users
+            const userId = users.findIndex(x => x._id === response._id)
+            if (userId > -1) {
+              const userToUpdate = users[userId]
+              userToUpdate.username = response.username
+              userToUpdate.email = response.email
+
+              users[userId] = userToUpdate
+            }
+
+            this.setState({ users: users.slice(0) })
+          } else {
+            this.setState({ error: 'The username/email is already taken!' })
+          }
+        })
+        .catch(err => console.log(err))
+    }
   }
 
   handleToggleAdmin = () => {
@@ -136,12 +138,7 @@ export default class AdminPanel extends Component {
           users[updatedUserIndex]._kmd = Object.assign({}, users[updatedUserIndex]._kmd)
         }
 
-        this.setState({
-          selectedUser: {
-            showMe: false
-          },
-          users: users
-        })
+        this.setState({ users: users })
       })
       .catch(err => console.log(err))
   }
@@ -197,7 +194,6 @@ export default class AdminPanel extends Component {
             <tr>
               <th scope='col'>Username</th>
               <th scope='col'>Email</th>
-              <th scope='col'>Points</th>
               <th scope='col'>Admin</th>
               <th scope='col'></th>
             </tr>
