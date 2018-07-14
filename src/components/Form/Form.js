@@ -120,11 +120,11 @@ export default class Form extends Component {
         route={this.props.location.pathname}
         error={this.state.error}
         history={this.props.history}
+        hideError={this.hideError}
       />
       {this.state.error &&
         <Validation
           error={this.state.error}
-          hideError={this.hideError}
         />
       }
     </div>
