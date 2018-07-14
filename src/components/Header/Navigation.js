@@ -1,36 +1,29 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import LogOut from './LogOut'
 import logo from '../../ball.png'
 
 const Navigation = props => {
-
-  const showLogOut = () => {
-    if (localStorage.getItem('token')) {
-      return (
-        <LogOut user={props.user} />
-      )
-    }
-
-    return null
-  }
+  const { _kmd } = props.user
+  const isLoggedIn = localStorage.getItem('token')
+  const isAdmin = _kmd && (_kmd.roles !== undefined && _kmd.roles.length > 0)
 
   return (
     <nav className='navbar navbar-dark bg-dark justify-content-between d-flex'>
       <div className='nav nav-pills align-self-start'>
-        <NavLink activeClassName='active' className='nav-link' to='/' exact>Home</NavLink>
-        {props.user._kmd && localStorage.getItem('token') ?
-          <NavLink activeClassName='active' className='nav-link' to='/profile'>Profile</NavLink>
-          : ''}
-        {props.user._kmd && localStorage.getItem('token') ?
-          (props.user._kmd.roles !== undefined && props.user._kmd.roles.length > 0) && <NavLink activeClassName='active' className='nav-link' to='/dashboard'>Dashboard</NavLink>
-          : ''}
+        {isLoggedIn && <NavLink activeClassName='active' className='nav-link' to='/home' exact>Home</NavLink>}
+        {!isLoggedIn && props.location.pathname === '/login' ?
+          <NavLink activeClassName='active' className='nav-link' to='/login' exact>Home</NavLink> :
+          !isLoggedIn && <NavLink activeClassName='active' className='nav-link' to='/signup' exact>Home</NavLink>
+        }
+        {isLoggedIn && <NavLink activeClassName='active' className='nav-link' to='/profile'>Profile</NavLink>}
+        {isAdmin && <NavLink activeClassName='active' className='nav-link' to='/dashboard'>Dashboard</NavLink>}
         <NavLink activeClassName='active' className='nav-link' to='/rules'>Rules</NavLink>
       </div>
       <img src={logo} width='50' alt='logo' />
-      {showLogOut()}
+      {isLoggedIn && <LogOut user={props.user} />}
     </nav>
   )
 }
 
-export default Navigation
+export default withRouter(Navigation)

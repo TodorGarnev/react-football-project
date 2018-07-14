@@ -4,16 +4,6 @@ import { withRouter } from 'react-router-dom'
 const LogOut = props => {
   const logOut = e => {
     e.preventDefault()
-
-    fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ/_logout`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Kinvey ' + localStorage.getItem('token'),
-        'X-Kinvey-API-Version': '3',
-      }
-    })
-
     localStorage.removeItem('token')
     props.history.push('/')
   }

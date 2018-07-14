@@ -70,7 +70,6 @@ export default class AdminPanel extends Component {
     const email = this.state.selectedUser.data.email
     const emailRegEx = /(\w+)\@(\w+)\.[a-zA-Z]/g
     const testEmail = emailRegEx.test(email)
-    console.log(testEmail)
 
     if (!testEmail) {
       this.setState({ error: 'Please enter a valid email!' })
@@ -189,34 +188,42 @@ export default class AdminPanel extends Component {
 
     return (
       <div>
-        <table className='table text-center'>
-          <thead className='bg-info text-white'>
-            <tr>
-              <th scope='col'>Username</th>
-              <th scope='col'>Email</th>
-              <th scope='col'>Admin</th>
-              <th scope='col'></th>
-            </tr>
-          </thead>
-          <tbody>
-            {allUsers}
-          </tbody>
-        </table>
-        {this.state.selectedUser.showMe &&
-          <UpdateUserRow
-            selectedUser={this.state.selectedUser}
-            handleChange={this.handleChange}
-            handleUpdate={this.handleUpdate}
-            handleToggleAdmin={this.handleToggleAdmin}
-            handleDelete={this.handleDelete}
-            handleClose={this.handleClose}
-          />
+        {this.state.users.length > 0 ?
+          <div>
+            <table className='table text-center'>
+              <thead className='bg-info text-white'>
+                <tr>
+                  <th scope='col'>Username</th>
+                  <th scope='col'>Email</th>
+                  <th scope='col'>Admin</th>
+                  <th scope='col'></th>
+                </tr>
+              </thead>
+              <tbody>
+                {allUsers}
+              </tbody>
+            </table>
+            {this.state.selectedUser.showMe &&
+              <UpdateUserRow
+                selectedUser={this.state.selectedUser}
+                handleChange={this.handleChange}
+                handleUpdate={this.handleUpdate}
+                handleToggleAdmin={this.handleToggleAdmin}
+                handleDelete={this.handleDelete}
+                handleClose={this.handleClose}
+              />
+            }
+            {this.state.error &&
+              < Validation
+                error={this.state.error}
+              />
+            }
+          </div> :
+          <div>
+            Loading..
+          </div>
         }
-        {this.state.error &&
-          < Validation
-            error={this.state.error}
-          />
-        }
+
       </div>
     )
   }
