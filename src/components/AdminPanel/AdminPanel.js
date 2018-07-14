@@ -219,8 +219,9 @@ export default class AdminPanel extends Component {
               />
             }
           </div> :
-          <div>
-            Loading..
+          <div className='d-flex justify-content-center'>
+            <i className="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+            <span className="sr-only">Loading...</span>
           </div>
         }
 

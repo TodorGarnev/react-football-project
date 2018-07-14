@@ -27,6 +27,8 @@ export default class Home extends Component {
         this.setState({
           comments: response
         })
+        console.log('Loading Home component')
+        console.log('>>isLoaded:', this.state.isLoaded)
       })
       .catch(err => console.log(err))
   }
@@ -112,18 +114,27 @@ export default class Home extends Component {
   render = () => {
     return (
       <div>
-        <Match
-          user={this.props.user}
-        />
-        <Comments
-          user={this.props.user}
-          comments={this.state.comments}
-          currentComment={this.state.currentComment}
-          handleChange={this.handleChange}
-          addComment={this.addComment}
-          deleteComment={this.deleteComment}
-          deleteAllComments={this.deleteAllComments}
-        />
+        {this.state.comments.length > 0 ?
+          <div>
+            <Match
+              user={this.props.user}
+              isLoaded={this.isLoaded}
+            />
+            <Comments
+              user={this.props.user}
+              comments={this.state.comments}
+              currentComment={this.state.currentComment}
+              handleChange={this.handleChange}
+              addComment={this.addComment}
+              deleteComment={this.deleteComment}
+              deleteAllComments={this.deleteAllComments}
+            />
+          </div> :
+          <div className='d-flex justify-content-center'>
+            <i className="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+            <span className="sr-only">Loading...</span>
+          </div>
+        }
       </div>
     )
   }

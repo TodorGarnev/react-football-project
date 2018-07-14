@@ -11,7 +11,8 @@ export default class Match extends Component {
         teamOneScore: '0',
         teamTwoName: 'Team 2',
         teamTwoScore: '0'
-      }
+      },
+      isLoaded: false
     }
   }
 
@@ -29,7 +30,8 @@ export default class Match extends Component {
         console.log(response)
         if (response.length > 0)
           this.setState({
-            game: response[response.length - 1]
+            game: response[response.length - 1],
+            isLoaded: true
           })
       })
       .catch(err => console.log(err))
@@ -76,26 +78,34 @@ export default class Match extends Component {
   }
 
   render = () => (
-    <div className='mb-5'>
-      <div className='d-sm-flex w-100 ml-auto mr-auto mb-5 text-white'>
-        <div className='bg-info p-2 w-100 d-flex justify-content-between display-4'>
-          <span>{this.state.game.teamOneName}</span>
-          <span>{this.state.game.teamOneScore}</span>
+    <div>
+      {this.state.isLoaded === true ?
+        (<div className='mb-5'>
+          <div className='d-sm-flex w-100 ml-auto mr-auto mb-5 text-white'>
+            <div className='bg-info p-2 w-100 d-flex justify-content-between display-4'>
+              <span>{this.state.game.teamOneName}</span>
+              <span>{this.state.game.teamOneScore}</span>
+            </div>
+            <span className='bg-info p-1 display-4'>-</span>
+            <div className='bg-info p-2 w-100 d-flex justify-content-between display-4 flex-sm-row-reverse'>
+              <span>{this.state.game.teamTwoName}</span>
+              <span >{this.state.game.teamTwoScore}</span>
+            </div>
+          </div>
+          {this.props.user._kmd ?
+            (this.props.user._kmd.roles !== undefined && this.props.user._kmd.roles.length > 0) &&
+            <MatchControler
+              game={this.state.game}
+              handleChange={this.handleChange}
+              addGame={this.addGame}
+            />
+            : ''}
+        </div>) :
+        <div className='d-flex justify-content-center mb-5'>
+          <i className="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+          <span className="sr-only">Loading...</span>
         </div>
-        <span className='bg-info p-1 display-4'>-</span>
-        <div className='bg-info p-2 w-100 d-flex justify-content-between display-4 flex-sm-row-reverse'>
-          <span>{this.state.game.teamTwoName}</span>
-          <span >{this.state.game.teamTwoScore}</span>
-        </div>
-      </div>
-      {this.props.user._kmd ?
-        (this.props.user._kmd.roles !== undefined && this.props.user._kmd.roles.length > 0) &&
-        <MatchControler
-          game={this.state.game}
-          handleChange={this.handleChange}
-          addGame={this.addGame}
-        />
-        : ''}
+      }
     </div>
   )
 }
