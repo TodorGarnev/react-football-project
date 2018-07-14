@@ -29,27 +29,28 @@ export default class Form extends Component {
     this.setState({ error: '' })
   }
 
-  handleSignUp = e => {
-    e.preventDefault()
-
-    const email = this.state.form.email
-    const username = this.state.form.email
-    const password = this.state.form.password
+  signUpValidation = obj => {
+    const { email, username, password } = obj
     const emailRegEx = /(\w+)\@(\w+)\.[a-zA-Z]/g
     const testEmail = emailRegEx.test(email)
 
     if (email === '' || email === undefined ||
       username === '' || username === undefined ||
-      password === '' || password === undefined
-    ) {
+      password === '' || password === undefined) {
       this.setState({ error: 'Please fill out all the fields!' })
     } else if (password.length < 5) {
       this.setState({ error: 'Your password must be at least 5 symbols!' })
-    }
-    else if (!testEmail) {
+    } else if (!testEmail) {
       this.setState({ error: 'Please enter a valid email!' })
+    } else {
+      return true
     }
-    else {
+  }
+
+  handleSignUp = e => {
+    e.preventDefault()
+
+    if (this.signUpValidation(this.state.form)) {
       fetch(`https://baas.kinvey.com/user/kid_rJZtL7CMQ`, {
         method: 'POST',
         body: JSON.stringify(this.state.form),

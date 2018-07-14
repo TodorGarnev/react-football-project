@@ -71,7 +71,7 @@ export default class AdminPanel extends Component {
   }
 
   handleUpdate = () => {
-    const email = this.state.selectedUser.data.email
+    const { email } = this.state.selectedUser.data
     const emailRegEx = /(\w+)\@(\w+)\.[a-zA-Z]/g
     const testEmail = emailRegEx.test(email)
 

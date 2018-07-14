@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Match from './Match/Match'
 import Comments from './Comments/Comments'
+import Validation from '../Validation/Validation'
 
 export default class Home extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ export default class Home extends Component {
     this.state = {
       comments: [],
       currentComment: '',
-      isLoaded: false
+      isLoaded: false,
+      error: ''
     }
   }
 
@@ -44,7 +46,7 @@ export default class Home extends Component {
 
   addComment = () => {
     if (this.state.currentComment === '') {
-      console.log('Please write a comment')
+      this.setState({ error: 'Please write a comment!' })
     } else {
       fetch(`https://baas.kinvey.com/appdata/kid_rJZtL7CMQ/comments`, {
         method: 'POST',
@@ -68,7 +70,8 @@ export default class Home extends Component {
             }
             this.setState({
               comments: [...this.state.comments, latestComment],
-              currentComment: ''
+              currentComment: '',
+              error: ''
             })
           }
         })
@@ -88,7 +91,10 @@ export default class Home extends Component {
       .then(response => {
         if (response.status === 200) {
           const filteredComments = this.state.comments.filter(comment => comment._id !== id)
-          this.setState({ comments: filteredComments })
+          this.setState({
+            comments: filteredComments,
+            error: ''
+          })
         }
       })
       .catch(err => console.log(err))
@@ -104,7 +110,10 @@ export default class Home extends Component {
       }
     })
       .then(response => {
-        this.setState({ comments: [] })
+        this.setState({
+          comments: [],
+          error: ''
+        })
       })
       .catch(err => console.log(err))
   }
@@ -126,6 +135,11 @@ export default class Home extends Component {
               deleteComment={this.deleteComment}
               deleteAllComments={this.deleteAllComments}
             />
+            {this.state.error &&
+              <Validation
+                error={this.state.error}
+              />
+            }
           </div> :
           <div className='d-flex justify-content-center'>
             <i className="fa fa-refresh fa-spin fa-3x fa-fw"></i>

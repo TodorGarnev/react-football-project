@@ -69,7 +69,6 @@ export default class Match extends Component {
         }
       })
         .then(data => data.json())
-        .then(response => console.log(response))
         .catch(err => console.log(err))
     }
   }
