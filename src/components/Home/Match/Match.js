@@ -58,9 +58,9 @@ export default class Match extends Component {
         method: 'POST',
         body: JSON.stringify({
           teamOneName: this.state.game.teamOneName,
-          teamOneScore: this.state.game.teamOneScore || 0,
+          teamOneScore: this.state.game.teamOneScore,
           teamTwoName: this.state.game.teamTwoName,
-          teamTwoScore: this.state.game.teamTwoScore || 0
+          teamTwoScore: this.state.game.teamTwoScore
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ export default class Match extends Component {
               handleChange={this.handleChange}
               addGame={this.addGame}
             />
-            : ''}
+            : null}
         </div>) :
         <div className='d-flex justify-content-center mb-5'>
           <i className="fa fa-refresh fa-spin fa-3x fa-fw"></i>

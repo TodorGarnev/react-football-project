@@ -66,8 +66,6 @@ export default class Home extends Component {
               comment: this.state.currentComment,
               author: this.props.user.username
             }
-
-
             this.setState({
               comments: [...this.state.comments, latestComment],
               currentComment: ''
@@ -89,7 +87,7 @@ export default class Home extends Component {
     })
       .then(response => {
         if (response.status === 200) {
-          const filteredComments = this.state.comments.filter(item => item._id !== id)
+          const filteredComments = this.state.comments.filter(comment => comment._id !== id)
           this.setState({ comments: filteredComments })
         }
       })
@@ -118,7 +116,6 @@ export default class Home extends Component {
           <div>
             <Match
               user={this.props.user}
-              isLoaded={this.isLoaded}
             />
             <Comments
               user={this.props.user}

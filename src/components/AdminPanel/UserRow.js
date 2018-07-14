@@ -13,7 +13,7 @@ const UserRow = props => (
     </td>
     <td>
       <button
-        data-id={props.userId}
+        data-id={props.userData._id}
         className='btn btn-info'
         onClick={props.getUser}
       >Edit</button>

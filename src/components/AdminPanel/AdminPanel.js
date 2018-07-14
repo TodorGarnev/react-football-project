@@ -29,7 +29,6 @@ export default class AdminPanel extends Component {
     })
       .then(data => data.json())
       .then(response => {
-        console.log(response)
         this.setState({ users: response })
       })
       .catch(err => console.log(err))
@@ -37,13 +36,14 @@ export default class AdminPanel extends Component {
 
   getUser = e => {
     const pickedUser = this.state.users.find(user => user._id === e.target.dataset.id)
+    const isAdmin = pickedUser._kmd.roles !== undefined && pickedUser._kmd.roles.length > 0
 
     this.setState({
       selectedUser: {
         data: {
           username: pickedUser.username,
           email: pickedUser.email,
-          isAdmin: (pickedUser._kmd.roles !== undefined && pickedUser._kmd.roles.length > 0) ? true : false
+          isAdmin: isAdmin
         },
         showMe: true,
         id: pickedUser._id
@@ -133,7 +133,6 @@ export default class AdminPanel extends Component {
       }
     })
       .then(response => {
-        console.log(response)
         const updatedUserIndex = this.state.users.findIndex(x => x._id === this.state.selectedUser.id)
         const users = this.state.users.slice(0)
 
@@ -158,10 +157,8 @@ export default class AdminPanel extends Component {
       }
     })
       .then(response => {
-        console.log(response)
         if (response.error === undefined) {
           const filteredUsers = this.state.users.filter(item => item._id !== this.state.selectedUser.id)
-          console.log(filteredUsers)
           this.setState({
             users: filteredUsers,
             selectedUser: {
@@ -187,7 +184,6 @@ export default class AdminPanel extends Component {
     const allUsers = this.state.users.map(user =>
       <UserRow
         key={user._id}
-        userId={user._id}
         userData={user}
         checked={(user._kmd.roles !== undefined && user._kmd.roles.length > 0) ? true : false}
         getUser={this.getUser}

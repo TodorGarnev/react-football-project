@@ -87,7 +87,6 @@ export default class Form extends Component {
     })
       .then(data => data.json())
       .then(response => {
-        console.log(response)
         if (response.error === undefined) {
           localStorage.setItem('token', response._kmd.authtoken)
           this.props.history.push('/')
@@ -117,9 +116,6 @@ export default class Form extends Component {
     <div className='form'>
       {this.showForm()}
       <Clarification
-        route={this.props.location.pathname}
-        error={this.state.error}
-        history={this.props.history}
         hideError={this.hideError}
       />
       {this.state.error &&
