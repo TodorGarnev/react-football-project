@@ -15,6 +15,10 @@ To run the app, follow these steps.
 
 3. To run the app:
 
+  ```shell
+  npm start
+  ```
+
 4. Browse to [http://localhost:3000](http://localhost:3000) to see the app.
 
 # Basic functionality
