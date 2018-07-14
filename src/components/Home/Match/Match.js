@@ -27,12 +27,14 @@ export default class Match extends Component {
     })
       .then(data => data.json())
       .then(response => {
-        console.log(response)
-        if (response.length > 0)
+        if (response.length > 0) {
           this.setState({
             game: response[response.length - 1],
             isLoaded: true
           })
+        } else {
+          this.setState({ isLoaded: true })
+        }
       })
       .catch(err => console.log(err))
   }
@@ -67,12 +69,7 @@ export default class Match extends Component {
         }
       })
         .then(data => data.json())
-        .then(response => {
-          console.log(response)
-          if (response.error === undefined) {
-
-          }
-        })
+        .then(response => console.log(response))
         .catch(err => console.log(err))
     }
   }

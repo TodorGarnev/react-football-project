@@ -51,6 +51,10 @@ export default class AdminPanel extends Component {
     })
   }
 
+  hideError = () => {
+    this.setState({ error: '' })
+  }
+
   handleChange = e => {
     const name = e.target.name
     const value = e.target.value
@@ -100,8 +104,9 @@ export default class AdminPanel extends Component {
             }
 
             this.setState({ users: users.slice(0) })
+            this.hideError()
           } else {
-            this.setState({ error: 'The username/email is already taken!' })
+            this.setState({ error: 'The username is already taken!' })
           }
         })
         .catch(err => console.log(err))
@@ -138,6 +143,7 @@ export default class AdminPanel extends Component {
         }
 
         this.setState({ users: users })
+        this.hideError()
       })
       .catch(err => console.log(err))
   }
@@ -162,6 +168,7 @@ export default class AdminPanel extends Component {
               showMe: false
             }
           })
+          this.hideError()
         }
       })
       .catch(err => console.log(err))
@@ -173,6 +180,7 @@ export default class AdminPanel extends Component {
         showMe: false
       }
     })
+    this.hideError()
   }
 
   render = () => {

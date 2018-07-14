@@ -8,7 +8,8 @@ export default class Home extends Component {
 
     this.state = {
       comments: [],
-      currentComment: ''
+      currentComment: '',
+      isLoaded: false
     }
   }
 
@@ -23,12 +24,14 @@ export default class Home extends Component {
     })
       .then(data => data.json())
       .then(response => {
-        console.log(response)
-        this.setState({
-          comments: response
-        })
-        console.log('Loading Home component')
-        console.log('>>isLoaded:', this.state.isLoaded)
+        if (response.length > 0) {
+          this.setState({
+            comments: response,
+            isLoaded: true
+          })
+        } else {
+          this.setState({ isLoaded: true })
+        }
       })
       .catch(err => console.log(err))
   }
@@ -85,7 +88,6 @@ export default class Home extends Component {
       }
     })
       .then(response => {
-        console.log(response)
         if (response.status === 200) {
           const filteredComments = this.state.comments.filter(item => item._id !== id)
           this.setState({ comments: filteredComments })
@@ -104,9 +106,7 @@ export default class Home extends Component {
       }
     })
       .then(response => {
-        console.log(response)
-        const comments = []
-        this.setState({ comments: comments })
+        this.setState({ comments: [] })
       })
       .catch(err => console.log(err))
   }
@@ -114,7 +114,7 @@ export default class Home extends Component {
   render = () => {
     return (
       <div>
-        {this.state.comments.length > 0 ?
+        {this.state.isLoaded ?
           <div>
             <Match
               user={this.props.user}
