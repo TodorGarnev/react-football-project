@@ -17,7 +17,7 @@ const Navigation = props => {
           !isLoggedIn && <NavLink activeClassName='active' className='nav-link' to='/signup' exact>Home</NavLink>
         }
         {isLoggedIn && <NavLink activeClassName='active' className='nav-link' to='/profile'>Profile</NavLink>}
-        {isAdmin && <NavLink activeClassName='active' className='nav-link' to='/dashboard'>Dashboard</NavLink>}
+        {(isLoggedIn && isAdmin) && <NavLink activeClassName='active' className='nav-link' to='/dashboard'>Dashboard</NavLink>}
         <NavLink activeClassName='active' className='nav-link' to='/rules'>Rules</NavLink>
       </div>
       <img src={logo} width='50' alt='logo' />
